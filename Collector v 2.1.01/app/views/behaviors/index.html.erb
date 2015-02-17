@@ -1,0 +1,53 @@
+<title>Behavior List</title>
+
+<table class="background">
+  <tr class="background">
+    <td width="75px"></td>
+    <td><h1>Behavior List</h1></td>
+  </tr>
+  <td class="background" align="right"  ><%= link_to "?", av_show_all_behaviors_help_path, :class => 'help_button'  %></td>
+</table>
+
+
+
+<% if @behavior_array != nil %>
+    <div style="height:300px;overflow: auto;">
+      <table width ="50%" align="center"><tr><td>
+      <% @behavior_array.each do |b| %>
+          <ul class ="collapsibleList">
+            <li><%= button_tag b.behavior_name,:type => 'button',:class => 'behavior_button full' %>
+              <div align="right">
+               <ul>
+                 <li><%= button_tag 'Description', :class => 'function_button menu4' %>
+                     <ul>
+                       <li><%= button_tag b.behavior_description, :class => 'behavior_description full'%></li>
+                     </ul>
+                  </li>
+                  <li> <%= link_to 'Edit',av_edit_behavior_path(b.id), :class => 'function_button menu' %></li>
+                  <li> <%= link_to 'Deactivate',av_deactivate_behavior_path(id: b.id), data: { confirm: 'Are you sure you wish to deactivate behavior: '+b.behavior_name }, :class => 'function_button menu' %></li>
+              </ul>
+              </div>
+            </li>
+          </ul>
+      <% end %>
+      </td></tr></table>
+      <script>CollapsibleLists.apply();</script>
+    </div>
+<% else %>
+    <h3>None</h3>
+<% end %>
+<br><br>
+
+<table width="50%">
+  <tr>
+    <td width="50%"><%= link_to 'Create new' , av_create_new_behavior_path , :class => 'behavior_button menu2' %></td>
+    <td width="50%"><%= link_to 'List Inactive', av_show_all_inactive_behaviors_path, :class => 'behavior_button menu2' %></td>
+  </tr>
+</table>
+
+<% if params[:create_behavior_success_flag] == '*' %>
+    <script language="JavaScript">
+        alert("New Behavior Created")
+    </script>
+<%end%>
+

@@ -1,0 +1,45 @@
+<title>Individuals assigned to Provider: <%= params[:provider_name]%></title>
+
+<table class="background">
+  <tr class="background">
+    <td width="75px"></td>
+    <td><h3><center>Individuals assigned to Provider: <%= params[:provider_name]%></center></h3></td>
+  </tr>
+</table>
+
+<% if params[:patient_id_array] != 'nil' %>
+    <div style="height:300px;overflow: auto;">
+      <table width = 50%><tr><td>
+        <% for n in @patient_name_array %>
+            <ul class ="collapsibleList">
+              <li><%= button_tag n.patient_name,:type => 'button',:class => 'individual_button full' %>
+                <ul>
+                  <div align="right">
+                    <li><%= link_to 'Behaviors', av_show_behaviors_path(n.patient_name, n.id), :class => 'behavior_button menu' %></li>
+                    <li><%= link_to 'Unassign', delete_patientprovider_path(params[:provider_id], n.id), data: {confirm: 'Are you sure you wish to unassign provider: '+params[:provider_name]+ ' to individual: '+n.patient_name}, :class => 'function_button menu' %></li>
+                  </div>
+                </ul>
+              </li>
+            </ul>
+        <% end %>
+      </td></tr></table>
+      <script>CollapsibleLists.apply();</script>
+    </div>
+<% else %>
+    <h3>None</h3>
+<% end %>
+<br><br>
+
+<table align="center">
+  <tr><td>
+    <%= link_to 'Add new individual', av_show_all_patients_to_add_to_provider_path(params[:provider_name], params[:provider_id], params[:patient_id_array]), :class => 'individual_button'%>
+  </td></tr>
+</table>
+<%= link_to 'Back', av_show_all_providers_path, :class => 'function_button menu' %>
+
+
+
+
+
+
+

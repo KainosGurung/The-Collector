@@ -1,0 +1,47 @@
+<title>Provider List</title>
+
+<table class="background">
+  <tr class="background">
+    <td width="75px"></td>
+    <td><h1>Provider List</h1></td>
+  </tr>
+  <td class="background" align="right"  ><%= link_to "?", av_show_all_providers_help_path, :class => 'help_button'  %></td>
+</table>
+
+
+
+<% if @provider_array != nil %>
+    <div style="height:300px;overflow: auto;">
+      <table width ="50%" align="center"><tr><td>
+        <% @provider_array.each do |p| %>
+            <ul class ="collapsibleList">
+              <li><%= button_tag p.provider_name,:type => 'button',:class => 'provider_button full' %>
+                <ul>
+                  <div align="right">
+                    <li><%= link_to 'Individuals',av_show_patients_path(p.provider_name, p.id), :class => 'individual_button menu' %></li>
+                    <li><%= link_to 'Edit',av_edit_provider_path(p.id), :class => 'function_button menu' %></li>
+                    <li><%= link_to 'Deactivate',av_deactivate_provider_path(id: p.id), data: { confirm: 'Are you sure you wish to deactivate provider: '+p.provider_name }, :class => 'function_button menu' %></li>
+                  </div>
+                </ul>
+              </li>
+            </ul>
+        <% end %>
+      </td></tr></table>
+      <script>CollapsibleLists.apply();</script>
+    </div>
+<% else %>
+    <h3>None</h3>
+<% end %>
+<br><br>
+
+<table width="50%">
+  <tr>
+    <td width="50%"><%= link_to 'Create new' , av_create_new_provider_path , :class => 'provider_button menu2' %></td>
+    <td width="50%"><%= link_to 'List Inactive', av_show_all_inactive_providers_path, :class => 'provider_button menu2' %></td>
+  </tr>
+</table>
+<% if params[:create_provider_success_flag] == '*' %>
+    <script language="JavaScript">
+        alert("New Provider Created")
+    </script>
+<%end%>

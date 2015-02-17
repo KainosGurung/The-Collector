@@ -1,0 +1,22 @@
+<title>Create new Individual Error</title>
+
+<table class="background">
+  <tr class="background">
+    <td width="75px"></td>
+    <td><h3>Create new Individual Error</h3></td>
+  </tr>
+</table>
+
+<% if @patient.errors.any? %>
+    <h2>Invalid Assignment</h2>
+    <div class='error_messages' align="left">
+      <ul>
+        <% for message in @patient.errors.full_messages %>
+            <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
+
+<br>
+<%= link_to 'Back' , av_create_new_patient_path , :class => 'function_button menu2' %>

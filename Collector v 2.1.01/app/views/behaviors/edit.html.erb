@@ -1,0 +1,39 @@
+<title>Edit Behavior: <%= @behavior.behavior_name %></title>
+
+<table class="background">
+  <tr class="background">
+    <td width="75px"></td>
+    <td><h2>Edit Behavior: <%= @behavior.behavior_name %></h2></td>
+  </tr>
+</table>
+
+<!-- Creates a form for our patient model -->
+<%= form_for @behavior do |f| %>
+
+    <% if @behavior.errors.any? %>
+        <div class='error_messages'>
+          <h2>Form is invalid</h2>
+          <ul>
+            <% for message in @behavior.errors.full_messages %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <h3>
+      <p>
+        <%= f.label :behavior_name %><br>
+        <%= f.text_field :behavior_name %>
+      </p>
+      <p>
+        <%= f.label :behavior_description %><br>
+        <%= f.text_area :behavior_description %>
+      </p>
+    </h3>
+    <%= f.submit 'Submit', :class => 'function_button' %>
+    <%= link_to 'Cancel', root_path, :class => 'function_button' %>
+<% end %>
+
+<br>
+<%= link_to 'Back', av_show_all_behaviors_path, :class => 'function_button menu' %>

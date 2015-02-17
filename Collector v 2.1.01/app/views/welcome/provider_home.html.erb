@@ -1,0 +1,9 @@
+<title>Provider homepage</title>
+<%= image_tag "/DDRC_Icon.jpg" %>
+<h1>Welcome back <%= session[:self_provider_name] %></h1><br>
+
+<% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, :id => "flash_#{name}" %>
+<% end %>
+
+<%= link_to 'View Individuals', pv_patient_record_arrays_path, :class => 'individual_button' %>

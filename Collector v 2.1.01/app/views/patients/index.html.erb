@@ -1,0 +1,54 @@
+<title>Individual List</title>
+
+<table class="background">
+  <tr class="background">
+    <td width="75px"></td>
+    <td><h1>Individual List</h1></td>
+  </tr>
+  <td class="background" align="right" ><%= link_to "?", av_show_all_patients_help_path, :class => 'help_button' %></td>
+</table>
+
+
+
+<% if @patient_array != nil %>
+    <div style="height:300px;overflow: auto;">
+      <table width = 50%><tr><td>
+      <% @patient_array.each do |p| %>
+          <ul class ="collapsibleList">
+            <li><%= button_tag p.patient_name,:type => 'button',:class => 'individual_button full' %>
+              <ul>
+                <div align="right">
+                  <li><%= link_to 'Providers', av_show_providers_path(p.patient_name, p.id), :class => 'provider_button menu' %></li>
+                  <li><%= link_to 'Behaviors', av_show_behaviors_path(p.patient_name, p.id), :class => 'behavior_button menu' %></li>
+                  <li><%= link_to 'Edit', av_edit_patient_path(p.id), :class => 'function_button menu' %></li>
+                  <li><%= link_to 'Deactivate',av_deactivate_patient_path(id: p.id), data: { confirm: 'Are you sure you wish to deactivate individual: '+p.patient_name }, :class => 'function_button menu' %></li>
+                </div>
+              </ul>
+            </li>
+          </ul>
+      <% end %>
+      </td></tr></table>
+      <script>CollapsibleLists.apply();</script>
+    </div>
+<% else %>
+    <h3>None</h3>
+<% end %>
+<br><br>
+
+<table width="50%">
+  <tr>
+    <td width="50%"><%= link_to 'Create new' , av_create_new_patient_path , :class => 'individual_button menu2' %></td>
+    <td width="50%"><%= link_to 'List Inactive', av_show_all_inactive_patients_path, :class => 'individual_button menu2' %></td>
+  </tr>
+</table>
+<% if params[:create_patient_success_flag] == '*' %>
+    <script language="JavaScript">
+        alert("New Individual Created")
+    </script>
+<%end%>
+
+
+
+
+
+

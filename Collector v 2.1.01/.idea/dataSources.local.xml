@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails Collector: development" uuid="c3865edc-025f-4f88-877e-0b1e32d7a0e4">
+      <user-name>root</user-name>
+      <user-password>dfc9dfc5dfc6dfc6dfcfdfc9dfdedfc5dfd8</user-password>
+    </data-source>
+    <data-source name="Rails Collector: test" uuid="ec88438b-49b6-4a68-a13c-6697bd8bd8e8">
+      <user-name>root</user-name>
+      <user-password>dfc9dfc5dfc6dfc6dfcfdfc9dfdedfc5dfd8</user-password>
+    </data-source>
+    <data-source name="Rails Collector: production" uuid="5346d53e-30dc-4a0f-a7bc-d9de02ab0543">
+      <user-name>Collector</user-name>
+      <user-password>df96df8fdf97df8adfefdfe4dffcdff1df8ddfe9dfe5dfe6dfe6dfefdfe9dffedfe5dff8dff5dfeedfebdffedfebdfe8dfebdff9dfefdff5dffadfebdff9dff9dffddfe5dff8dfeedf8ddff7df8adf8fdf94</user-password>
+    </data-source>
+  </component>
+</project>

@@ -1,0 +1,39 @@
+<title>Tracked Individuals</title>
+
+<table class="background">
+  <tr class="background">
+    <td width="75px"></td>
+    <td><h1>Tracked Individuals</h1></td>
+  </tr>
+  <td class="background" align="right"  ><%= link_to "?", pv_behavior_record_arrays_help_path, :class => 'help_button'  %></td>
+</table>
+
+
+<div style="height:300px;overflow: auto;">
+  <table width ="50%" align="center"><tr><td>
+      <% i = 0 %>
+    <% unless !session[:patient_id_array].present? %>
+        <% while i < session[:patient_name_array].length %>
+          <ul class ="collapsibleList">
+          <li><%=button_tag session[:patient_name_array][i],:type => 'button',:class => 'individual_button full'  %>
+          <ul>
+          <% j = 0 %>
+          <div align="right">
+          <% if @behavior_name_array[i].length != 0 %>
+              <% while j < @behavior_name_array[i].length %>
+                  <li><%= link_to @behavior_name_array[i][j], add_incident_path(session[:self_provider_id],session[:patient_id_array][i],@behavior_id_array[i][j]), :class => 'behavior_button menu', data: { confirm: 'Confirm add incident of behavior: '+@behavior_name_array[i][j]+' for individual: '+session[:patient_name_array][i]}%></li>
+                <% j += 1 %>
+              <% end %>
+          <% else %>
+            <li><%= button_tag 'NONE',:type => 'button',:class => 'behavior_button menu' %></li>
+          <% end %>
+          </div>
+          </ul></li></ul>
+          <% i += 1 %>
+        <% end %>
+    <% else %>
+        <center><h1>NONE</h1></center>
+    <% end %>
+  </td></tr></table>
+  <script>CollapsibleLists.apply();</script>
+</div>

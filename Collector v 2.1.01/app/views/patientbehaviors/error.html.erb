@@ -1,0 +1,21 @@
+<title>Behavior Assignment Error</title>
+
+<table class="background">
+  <tr class="background">
+    <td width="75px"></td>
+    <td><h3>Behavior Assignment Error</h3></td>
+  </tr>
+</table>
+
+<% if @patientbehavior.errors.any? %>
+    <h2>Invalid Assignment</h2>
+    <div class='error_messages' align="left">
+      <ul>
+        <% for message in @patientbehavior.errors.full_messages %>
+            <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
+<br>
+<%= link_to 'Back', :back, :class => 'function_button menu' %>
