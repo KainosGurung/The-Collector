@@ -1,0 +1,23 @@
+<title>Log in</title>
+<%= image_tag "/DDRC_Icon.jpg" %>
+<h1>Log In</h1>
+
+<%=form_tag log_in_path do%>
+<% flash.each do |name, msg| %>
+  <%= content_tag :div, msg, :id => "flash_#{name}" %>
+<% end %>
+    <h3>
+    <%=label_tag :provider_name %><br>
+    <%=text_field_tag :provider_name %><br><br>
+    <%=label_tag :password %><br>
+    <%=password_field_tag :password %><br><br>
+    </h3>
+
+    <br>
+    <table>
+      <tr>
+        <td><%= link_to 'Home', root_path, :class => 'function_button' %></td>
+        <td><%=submit_tag 'Log in', :class => 'function_button' %></td>
+      </tr>
+    </table>
+<%end%>

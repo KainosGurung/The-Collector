@@ -1,0 +1,33 @@
+<title>Inactive Individuals</title>
+
+<table class="background">
+  <tr class="background">
+    <td width="75px"></td>
+    <td><h1>Inactive Individuals</h1></td>
+  </tr>
+</table>
+
+<% if @patient_array != nil %>
+    <div style="height:300px;overflow: auto;">
+      <table width = 50% align="center"><tr><td>
+        <% @patient_array.each do |p| %>
+            <ul class ="collapsibleList">
+              <li><%= button_tag p.patient_name,:type => 'button',:class => 'individual_button full' %>
+                <ul>
+                  <div align="right">
+                    <li><%= link_to 'Reactivate',av_reactivate_patient_path(id: p.id), data: { confirm: 'Are you sure you wish to reactivate individual: '+p.patient_name }, :class => 'function_button menu' %></li><br><br>
+                    <li> <%= link_to 'Destroy', av_destroy_patient_path(id: p.id), data: { confirm: 'Are you sure you wish to destroy individual: '+p.patient_name+ '? This will eliminate all incidents with this individual!' }, :class => 'function_button menu' %> </li>
+                  </div>
+                </ul>
+              </li>
+            </ul>
+        <% end %>
+      </td></tr></table>
+      <script>CollapsibleLists.apply();</script>
+    </div>
+<% else %>
+    <h3>None</h3>
+<% end %>
+
+<br>
+<%= link_to 'Back', av_show_all_patients_path, :class => 'function_button menu' %>

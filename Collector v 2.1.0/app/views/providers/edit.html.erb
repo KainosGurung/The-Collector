@@ -1,0 +1,56 @@
+<title>Edit Provider: <%= @provider.provider_name %> </title>
+
+<table class="background">
+  <tr class="background">
+    <td width="75px"></td>
+    <td><h2>Edit Provider: <%= @provider.provider_name %> </h2></td>
+  </tr>
+</table>
+
+<!-- Creates a form for our provider model -->
+<%= form_for @provider do |f| %>
+
+    <!-- If there's any errors whilst signing up, display error messages (generated from provider model, ie. field validations) -->
+    <% if @provider.errors.any? %>
+        <div class='error_messages'>
+          <h2>Form is invalid</h2>
+          <ul>
+            <% for message in @provider.errors.full_messages %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <h3>
+      <p>
+        <%= f.label :provider_name %><br>
+        <%= f.text_field :provider_name %>
+      </p>
+      <p>
+        <%= f.label :password %><br>
+        <%= f.password_field :password %>
+      </p>
+      <p>
+        <%= f.label :password_confirmation %><br>
+        <%= f.password_field :password_confirmation %>
+      </p>
+
+      <% if session[:edit_self_flag] == 1 %>
+          <input type="hidden" name="set_admin" value="1">
+      <% else %>
+          <p>
+            <input type="radio" name="set_admin" value="1">Admin</input>
+            <input type="radio" name="set_admin" value="0" checked>Provider</input>
+          </p>
+      <% end %>
+    </h3>
+    <%= f.submit 'Submit', :class => 'function_button' %>
+    <%= link_to 'Cancel', root_path, :class => 'function_button' %>
+<% end %>
+<br>
+<% if session[:edit_self_flag] == 1 %>
+    <%= link_to 'Back', admin_home_path, :class => 'function_button menu' %>
+<% else %>
+    <%= link_to 'Back', av_show_all_providers_path, :class => 'function_button menu' %>
+<% end %>

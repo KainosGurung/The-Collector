@@ -1,0 +1,28 @@
+<%= image_tag "/DDRC_Icon.jpg" %>
+
+<title>Admin homepage</title>
+<h1>Welcome back <%= session[:self_provider_name] %></h1>
+
+<%= link_to "?", admin_home_help_path, :class => 'help_button' %>
+
+<% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, :id => "flash_#{name}" %>
+<% end %>
+
+<table>
+  <tr>
+    <td><%= link_to 'Show all individuals', av_show_all_patients_path, :class => 'individual_button width' %></td>
+  </tr>
+  <tr>
+    <td><%= link_to 'Show all providers', av_show_all_providers_path, :class => 'provider_button width' %></td>
+  </tr>
+  <tr>
+    <td><%= link_to 'Show all behaviors', av_show_all_behaviors_path, :class => 'behavior_button width' %></td>
+  </tr>
+  <tr>
+    <td><%= link_to 'Show all incidents', av_show_all_incidents_path, :class => 'incident_button width' %></td>
+  </tr>
+  <tr>
+    <td><%= link_to 'Edit Self', av_edit_provider_path(session[:self_provider_id]), :class => 'function_button width' %></td>
+  </tr>
+</table>

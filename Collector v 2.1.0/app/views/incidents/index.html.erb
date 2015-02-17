@@ -1,0 +1,36 @@
+<title>Incident List</title>
+
+<table class="background">
+  <tr class="background">
+    <td width="75px"></td>
+    <td><h1>Incident List</h1></td>
+  </tr>
+</table>
+
+<% count = 0%>
+<% if @incident_array != nil %>
+    <div style="height:300px;overflow: auto;">
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>Provider</th>
+            <th>Individual</th>
+            <th>Behavior</th>
+            <th>Timpestamp</th>
+          </tr>
+          <% @incident_array.each do |i| %>
+              <tr>
+                <td><%= count+=1 %></td>
+                <td><%= i.provider.provider_name %></td>
+                <td><%= i.patient.patient_name %></td>
+                <td><%= i.behavior.behavior_name %></td>
+                <td><%= i.created_at.year %>-<%= i.created_at.month %>-<%= i.created_at.day %></td>
+              </tr>
+          <% end %>
+        </table>
+    </div>
+<% else %>
+    <h3>None</h3>
+<% end %>
+<br>
+<%= link_to "Download Excel File", av_index_excel_path(format: "xls"), :class => 'incident_button' %>

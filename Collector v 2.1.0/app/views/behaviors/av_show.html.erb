@@ -1,0 +1,42 @@
+<title>Tracked Behaviors for Individual: <%=  params[:patient_name]%></title>
+
+<table class="background">
+  <tr class="background">
+    <td width="75px"></td>
+    <td><h3><center>Tracked Behaviors for Individual: <%= params[:patient_name]%></center></h3></td>
+  </tr>
+</table>
+
+<% if params[:behavior_id_array] != 'nil' %>
+    <div style="height:300px;overflow: auto;">
+      <table width ="50%" align="center"><tr><td>
+        <% for n in @behavior_name_array %>
+            <ul class ="collapsibleList">
+              <li><%= button_tag n.behavior_name,:type => 'button',:class => 'behavior_button full' %>
+                <ul>
+                  <div align="right">
+                    <li><%= link_to  'Add incident', add_incident_path(session[:self_provider_id], params[:patient_id], n.id), data: { confirm: 'Confirm add incident of behavior: '+n.behavior_name+' for individual: '+params[:patient_name]} , :class => 'incident_button' %></li>
+                    <li><%= link_to 'Remove', delete_patientbehavior_path(params[:patient_id], n.id), data: { confirm: 'Are you sure you want to stop tracking behavior: '+n.behavior_name+' for individual: '+params[:patient_name]}, :class => 'function_button' %></li>
+                  </div>
+                </ul>
+              </li>
+            </ul>
+        <% end %>
+      </td></tr></table>
+      <script>CollapsibleLists.apply();</script>
+    </div>
+<% else %>
+    <h3>None</h3>
+<% end %>
+<br><br>
+<table align="center">
+  <tr><td>
+    <%= link_to 'Add new Behavior ', av_show_all_behaviors_to_add_to_patient_path(params[:patient_name], params[:patient_id]), :class => 'behavior_button'%>
+  </td></tr>
+</table>
+
+<% if session[:duplicate_path_flag] == 1 %>
+    <%= link_to 'Back', av_show_all_patients_path, :class => 'function_button menu' %>
+<% else %>
+    <%= link_to 'Back', session[:patient_show_url], :class => 'function_button menu' %>
+<% end %>

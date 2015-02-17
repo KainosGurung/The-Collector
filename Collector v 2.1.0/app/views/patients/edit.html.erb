@@ -1,0 +1,35 @@
+<title>Edit Individual: <%= @patient.patient_name %> </title>
+
+<table class="background">
+  <tr class="background">
+    <td width="75px"></td>
+    <td><h2>Edti Individual: <%= @patient.patient_name %> </h2></td>
+  </tr>
+</table>
+
+<!-- Creates a form for our patient model -->
+<%= form_for @patient do |f| %>
+
+    <% if @patient.errors.any? %>
+        <div class='error_messages'>
+          <h2>Form is invalid</h2>
+          <ul>
+            <% for message in @patient.errors.full_messages %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <h3>
+      <p>
+        <%= f.label :name %><br>
+        <%= f.text_field :patient_name %>
+      </p>
+    </h3>
+
+    <%= f.submit 'Submit', :class => 'function_button' %>
+    <%= link_to 'Cancel', root_path, :class => 'function_button' %>
+
+<% end %>
+<br>
+<%= link_to 'Back', av_show_all_patients_path, :class => 'function_button menu' %>

@@ -1,0 +1,18 @@
+<title>Assign Individual to a Provider success</title>
+
+<table class="background">
+  <tr class="background">
+    <td width="75px"></td>
+    <td><h1>Success</h1></td>
+  </tr>
+</table>
+
+<h1>New Individual assigned</h1><br>
+
+<% if session[:patient_provider_flag] == 1 %>
+    <%= link_to 'Back', session[:patient_show_url], :class => 'function_button menu' %>
+<% elsif session[:patient_provider_flag] == 2 %>
+    <%= link_to 'Back', session[:provider_show_url], :class => 'function_button menu' %>
+<% else %>
+
+<% end %>

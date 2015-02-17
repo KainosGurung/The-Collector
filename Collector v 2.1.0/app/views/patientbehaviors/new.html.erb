@@ -1,0 +1,35 @@
+<title>Track new Behavior</title>
+
+<table class="background">
+  <tr class="background">
+    <td width="75px"></td>
+    <td><h3>Track new Behavior</h3></td>
+  </tr>
+</table>
+
+<!-- Creates a form for our patient model -->
+<%= form_for @patientbehavior do |f| %>
+
+  <% if @patientbehavior.errors.any? %>
+      <div class='error_messages'>
+        <h2>Form is invalid</h2>
+        <ul>
+          <% for message in @patientbehavior.errors.full_messages %>
+              <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+  <h3>
+  <p>
+    <%= f.label :patient_id %><br />
+    <%= f.text_field :patient_id %>
+  </p>
+  <p>
+    <%= f.label :behavior_id %><br />
+    <%= f.text_field :behavior_id %>
+  </p>
+  </h3>
+    <%= f.submit 'Submit', :class => 'function_button' %>
+  <%= link_to 'Cancel', root_path, :class => 'function_button' %>
+<% end %>
