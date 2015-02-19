@@ -34,7 +34,7 @@
           <font color="#8b0000">
             <%= yield %>
           </font>
-          <% if session[:provider_id].present? %>
+          <% if session[:self_provider_id].present? %>
               <table>
                 <tr>
                   <td><%= link_to 'Home', root_path, :class => 'function_button menu2' %></td>
