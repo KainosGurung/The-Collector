@@ -1,0 +1,34 @@
+<title>Select a Provider to assign to Client: <%= params[:patient_name] %></title>
+
+<div data-role="header" data-position="fixed">
+  <h1>Select a Provider to assign to Client: <%= params[:patient_name] %></h1>
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Back', session[:provider_show_url], :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %></li>
+      <li><%= link_to 'CHANGE_HELP_PATH', av_show_all_providers_help_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-info'  %></li>
+      <li><%= link_to 'Home', admin_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-home' %></li>
+      <li><%= link_to 'Logout', log_out_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-power' %></li>
+    </ul>
+  </div>
+</div>
+
+<div data-role="content">
+  <% if @provider_list_array != nil && @provider_list_array.empty? != true %>
+      <% @provider_list_array.each do |p| %>
+          <%= link_to p.provider_name, av_create_new_patientprovider_path(p.id, params[:patient_id]),
+                      data: { confirm: 'Are you sure you wish to assign provider: '+p.provider_name+' to Client: '+params[:patient_name] },
+                      :class => 'ui-btn ui-corner-all ui-btn-icon-right ui-icon-carat-l' %>
+      <% end %>
+  <% else %>
+      <h3>None</h3>
+  <% end %>
+</div>
+
+<div data-role="footer" data-position="fixed">
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Create new provider', av_create_new_provider_and_assign_to_patient_path(params[:patient_name],params[:patient_id]),
+                      :class => 'ui-btn ui-btn-icon-bottom ui-icon-plus' %></li>
+    </ul>
+  </div>
+</div>

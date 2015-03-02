@@ -1,0 +1,42 @@
+<title>Create new Client</title>
+
+<div data-role="header" data-position="fixed">
+  <h1>Create new Client</h1>
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Back', av_show_all_patients_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %></li>
+      <li><%= link_to 'CHANGE_HELP_PATH', av_show_all_patients_help_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-info'  %></li>
+      <li><%= link_to 'Home', admin_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-home' %></li>
+      <li><%= link_to 'Logout', log_out_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-power' %></li>
+    </ul>
+  </div>
+</div>
+
+<div data-role="content">
+  <% if @patient.errors.any? %>
+      <div class='error_messages'>
+        <h2>Form is invalid</h2>
+        <ul>
+          <% for message in @patient.errors.full_messages %>
+              <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+
+  <%= form_for @patient do |f| %>
+      <h3>
+        <%= f.label :name %>
+        <%= f.text_field :patient_name %>
+      </h3>
+
+      <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+          <ul>
+            <li><%= submit_tag 'Submit', :class => 'ui-btn ui-btn-icon-bottom ui-icon-star' %></li>
+            <li><%= link_to 'Cancel', av_show_all_patients_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-delete'  %></li>
+          </ul>
+        </div>
+      </div>
+  <% end %>
+</div>

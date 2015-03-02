@@ -1,0 +1,67 @@
+<title>Edit Provider: <%= @provider.provider_name %></title>
+
+<div data-role="header" data-position="fixed">
+  <h1>Edit Provider: <%= @provider.provider_name %></h1>
+  <div data-role="navbar">
+    <ul>
+      <% if session[:edit_self_provider_redirect_flag] == 1 %>
+          <li><%= link_to 'Back', admin_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %></li>
+      <% elsif session[:edit_self_provider_redirect_flag] == 2 %>
+          <li><%= link_to 'Back', av_show_all_providers_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %></li>
+      <% end %>
+      <li><%= link_to 'CHANGE_HELP_PATH', av_show_all_providers_help_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-info'  %></li>
+      <li><%= link_to 'Home', admin_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-home' %></li>
+      <li><%= link_to 'Logout', log_out_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-power' %></li>
+    </ul>
+  </div>
+</div>
+
+<div data-role="content">
+  <% if @provider.errors.any? %>
+      <div class='error_messages'>
+        <h2>Form is invalid</h2>
+        <ul>
+          <% for message in @provider.errors.full_messages %>
+              <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+
+  <%= form_for @provider do |f| %>
+      <h3>
+        <%= f.label :provider_name %>
+        <%= f.text_field :provider_name %>
+
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation %>
+      </h3>
+
+      <% if session[:edit_self_provider_redirect_flag] == 1 %>
+          <input type="hidden" name="set_admin" value="1">
+      <% elsif session[:edit_self_provider_redirect_flag] == 2 %>
+          <fieldset data-role="controlgroup" data-type="horizontal">
+            <input type="radio" name="set_admin" id="radio-choice-h-2a" value="1" >
+            <label for="radio-choice-h-2a">Admin</label>
+            <input type="radio" name="set_admin" id="radio-choice-h-2b" value="0" checked="checked">
+            <label for="radio-choice-h-2b">Provider</label>
+          </fieldset>
+      <% end %>
+
+      <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+          <ul>
+            <li><%= submit_tag 'Submit', :class => 'ui-btn ui-btn-icon-bottom ui-icon-star' %></li>
+            <% if session[:edit_self_provider_redirect_flag] == 1 %>
+                <li><%= link_to 'Cancel', admin_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-delete' %></li>
+            <% elsif session[:edit_self_provider_redirect_flag] == 2 %>
+                <li><%= link_to 'Cancel', av_show_all_providers_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-delete' %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+  <% end %>
+</div>
