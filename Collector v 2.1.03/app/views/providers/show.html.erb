@@ -1,0 +1,36 @@
+<title>Providers assigned to Client: <%= params[:patient_name] %></title>
+
+<div data-role="header" data-position="fixed">
+  <h1>Providers assigned to Client: <%= params[:patient_name] %></h1>
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Back', av_show_all_patients_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %></li>
+      <li><%= link_to 'CHANGE_HELP_PATH', av_show_all_providers_help_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-info'  %></li>
+      <li><%= link_to 'Home', admin_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-home' %></li>
+      <li><%= link_to 'Logout', log_out_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-power' %></li>
+    </ul>
+  </div>
+</div>
+
+<div data-role="content">
+  <% if @provider_show_array != nil %>
+      <% @provider_show_array.each do |p| %>
+          <div data-role="collapsible" data-collapsed="true" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
+            <h4><%= p.provider_name %></h4>
+            <ul data-role="listview" data-theme="a" style="opacity: 0.5;">
+              <li><%= link_to 'Remove', delete_patientprovider_path(p.id, params[:patient_id]), data: {confirm: 'Are you sure you wish to unassign provider: '+p.provider_name+ ' to Client: '+params[:patient_name]} %></li>
+            </ul>
+          </div>
+      <% end %>
+  <% else %>
+      <h3>None</h3>
+  <% end %>
+</div>
+
+<div data-role="footer" data-position="fixed">
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Add new provider', av_show_all_providers_to_add_to_patient_path(params[:patient_name], params[:patient_id]), :class => 'ui-btn ui-btn-icon-bottom ui-icon-plus' %></li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<title>The Collector</title>
+<div data-role="header" align="center">
+  <h1>The Collector</h1>
+  <%= image_tag "/DDRC_Icon.png" %>
+</div>
+
+<div data-role="content" align="center">
+  <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+  <% end %><br>
+
+ <%= link_to 'Log in', log_in_path, :class => 'ui-btn ui-btn-inline' %>
+</div>

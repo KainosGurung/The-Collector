@@ -1,0 +1,29 @@
+<title>Admin Home page</title>
+<div data-role="header">
+  <h1>Admin Home</h1>
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Full Site', admin_home_path(:mobile => 0), :class => 'ui-btn ui-btn-icon-bottom ui-icon-action' %></li>
+      <li><%= link_to 'Help', admin_home_help_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-info'  %></li>
+      <li><%= link_to 'Home', admin_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-home' %></li>
+      <li><%= link_to 'Logout', log_out_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-power' %></li>
+    </ul>
+  </div>
+</div>
+
+<div data-role="content">
+  <div data-role="panel" id="mypanel">
+    <!-- panel content goes here -->
+    admin home help
+  </div><!-- /panel -->
+
+  <center>
+    Welcome back <%= session[:self_provider_name] %>
+  </center>
+
+  <%= link_to 'Show all Clients', av_show_all_patients_path, :class => 'ui-btn ui-corner-all ui-btn-icon-right ui-icon-carat-r' %>
+  <%= link_to 'Show all Providers', av_show_all_providers_path, :class => 'ui-btn ui-corner-all ui-btn-icon-right ui-icon-carat-r' %>
+  <%= link_to 'Show all Behaviors', av_show_all_behaviors_path, :class => 'ui-btn ui-corner-all ui-btn-icon-right ui-icon-carat-r' %>
+  <%= link_to 'Show all Incidents', av_show_all_incidents_path, :class => 'ui-btn ui-corner-all ui-btn-icon-right ui-icon-carat-r' %>
+  <%= link_to 'Edit Self', av_edit_provider_path(session[:self_provider_id]), :class => 'ui-btn ui-corner-all ui-btn-icon-right ui-icon-carat-r' %>
+</div>

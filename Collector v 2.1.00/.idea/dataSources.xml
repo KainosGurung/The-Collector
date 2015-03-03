@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="2106259205">
+    <data-source source="LOCAL" name="Rails Collector v 2.1.00: development" uuid="b86adfd1-9f06-4563-85d9-dbc3278662a4">
+      <driver-ref>mysql</driver-ref>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://127.0.0.1/Collector_development</jdbc-url>
+      <user-name>root</user-name>
+      <user-password>dfc9dfc5dfc6dfc6dfcfdfc9dfdedfc5dfd8</user-password>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+
