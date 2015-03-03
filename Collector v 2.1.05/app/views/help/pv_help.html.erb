@@ -1,0 +1,32 @@
+<title>Provider Help Page</title>
+
+<div style="height:300px;overflow: auto;">
+  <table width ="50%" align="center"><tr><td>
+
+    <ul class ="collapsibleList">
+      <li><%= button_tag 'Individual Help',:type => 'button',:class => 'individual_button full' %>
+        <div align="right">
+          <ul>
+            <li><%= button_tag 'List Tracked', :class => 'function_button menu4' %>
+              <ul>
+                <li><%= button_tag 'Instructions', :class => 'behavior_description full'%></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li><%= button_tag 'Behavior Help',:type => 'button',:class => 'behavior_button full' %>
+        <div align="right">
+          <ul>
+            <li><%= button_tag 'Add Incident', :class => 'function_button menu4' %>
+              <ul>
+                <li><%= button_tag 'Instructions', :class => 'behavior_description full'%></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </td></tr></table>
+  <script>CollapsibleLists.apply();</script>
+</div>
