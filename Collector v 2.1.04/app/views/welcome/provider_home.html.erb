@@ -1,0 +1,27 @@
+<title>Provider Home page</title>
+
+<div data-role="header" style="overflow:hidden;">
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Back', provider_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %></li>
+      <li><%= link_to 'Info', admin_home_help_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-info'  %></li>
+      <li><%= link_to 'Home', provider_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-home' %></li>
+      <li><%= link_to 'Logout', log_out_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-power' %></li>
+    </ul>
+  </div>
+</div>
+
+<div data-role="content" align="center">
+  <h2>Provider Home page</h2>
+  Welcome back <%= session[:self_provider_name] %>
+
+  <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+  <% end %>
+
+  <%= link_to 'View Clients', pv_patient_record_arrays_path,
+              :class => 'ui-btn ui-corner-all ui-btn-icon-right ui-icon-carat-r' %>
+</div>
+
+
+
