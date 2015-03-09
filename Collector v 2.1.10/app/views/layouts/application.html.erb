@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<style type="text/css">
+    table.background {
+        background: url(/DDRC_Header2.jpg) no-repeat;
+        background-position: left;
+        width:370px;
+        height: 95px;
+        color: darkred;
+    }
+    tr.background {
+        display: block;
+        height: 100%;
+        border-bottom: 1px solid darkred;
+    }
+    td.background {
+        background-position: right;
+        width: 20px;
+        height: 20px;
+    }
+</style>
+
+    <div data-role="page" data-theme="b" data-url="<%= request.path %>">
+      <%= yield %>
+    </div>
+
+</body>
+</html>

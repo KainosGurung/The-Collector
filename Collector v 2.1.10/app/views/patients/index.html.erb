@@ -1,0 +1,62 @@
+<title>Client List</title>
+
+<div data-role="header" data-position="fixed">
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Back', admin_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %></li>
+      <li><%= link_to 'Info', request.original_url+'#nav-panel', :class => 'ui-btn ui-btn-icon-bottom ui-icon-info' %></li>
+      <li><%= link_to 'Home', admin_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-home' %></li>
+      <li><%= link_to 'Logout', log_out_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-power' %></li>
+    </ul>
+  </div>
+</div>
+
+<div data-role="content">
+  <center><h2>Client List</h2></center>
+
+  <form><input data-type="search" id="searchForCollapsibleSet" data-theme="a" ></form>
+  <% if @patient_array != nil && @patient_array.empty? != true %>
+      <div data-role="collapsibleset" data-filter="true" data-inset="true" id="collapsiblesetForFilter" data-input="#searchForCollapsibleSet">
+      <% @patient_array.each do |p| %>
+          <div data-role="collapsible" data-collapsed="true" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
+            <h4><%= p.patient_name %></h4>
+            <ul data-role="listview" data-theme="a" style="opacity: 0.5;">
+              <li><%= link_to 'Providers', av_show_providers_path(p.patient_name, p.id)  %></li>
+              <li><%= link_to 'Behaviors', av_show_behaviors_path(p.patient_name, p.id)  %></li>
+              <li><%= link_to 'Edit', av_edit_patient_path(p.id) %></li>
+              <li><%= link_to 'Deactivate',av_deactivate_patient_path(id: p.id),
+                              data: { confirm: 'Are you sure you wish to deactivate Client: '+p.patient_name } %></li>
+            </ul>
+          </div>
+      <% end %>
+      </div>
+  <% else %>
+      <h3>None</h3>
+  <% end %>
+</div>
+
+<div data-role="footer" data-position="fixed">
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Create new', av_create_new_patient_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-plus' %></li>
+      <li><%= link_to 'List Inactive', av_show_all_inactive_patients_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-bars'  %></li>
+    </ul>
+  </div>
+</div>
+
+<% if params[:create_patient_success_flag] == '*' %>
+    <script language="JavaScript">
+        alert("New Client Created")
+    </script>
+<%end%>
+
+<div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel">
+  <a href="#" data-icon="delete" data-rel="close">Close</a>
+  <li>Press the clients name to access the available options</li>
+  <li>Press the provider button to list the clients providers</li>
+  <li>Press the behavior button to list the clients behaviors</li>
+  <li>Press the edit button to edit the client name</li>
+  <li>Press the deactivate button to remove the client from the active lists</li>
+  <li>Press the create new button to create a new client</li>
+  <li>Press the list inactive button to list the inactive clients</li>
+</div>

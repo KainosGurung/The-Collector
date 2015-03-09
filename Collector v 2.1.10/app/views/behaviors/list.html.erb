@@ -1,0 +1,41 @@
+<title>Select a Behavior to assign to Client: <%= params[:patient_name] %></title>
+
+<div data-role="header" data-position="fixed">
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Back', session[:behavior_show_url], :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %></li>
+      <li><%= link_to 'Info', request.original_url+'#nav-panel', :class => 'ui-btn ui-btn-icon-bottom ui-icon-info' %></li>
+      <li><%= link_to 'Home', admin_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-home' %></li>
+      <li><%= link_to 'Logout', log_out_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-power' %></li>
+    </ul>
+  </div>
+</div>
+
+<div data-role="content">
+  <center><h2>Select a Behavior to assign to Client: <%= params[:patient_name] %></h2></center>
+
+  <% if @behavior_list_array != nil && @behavior_list_array.empty? != true %>
+      <% @behavior_list_array.each do |b| %>
+          <%= link_to b.behavior_name, av_create_new_patientbehavior_path(params[:patient_id], b.id),
+                      data: { confirm: 'Are you sure you wish to add behavior: '+b.behavior_name+' to Client: '+params[:patient_name] },
+                      :class => 'ui-btn ui-corner-all ui-btn-icon-right ui-icon-carat-l' %>
+      <% end %>
+  <% else %>
+      <h3>None</h3>
+  <% end %>
+</div>
+
+<div data-role="footer" data-position="fixed">
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Create new behavior', av_create_new_behavior_and_add_to_patient_path(params[:patient_name], params[:patient_id]),
+                      :class => 'ui-btn ui-btn-icon-bottom ui-icon-plus' %></li>
+    </ul>
+  </div>
+</div>
+
+<div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel">
+  <a href="#" data-icon="delete" data-rel="close">Close</a>
+  <li>Select a behavior to assign it to the client.</li>
+  <li>Select create a new behavior to create a behavior and assign it to the client.</li>
+</div>
