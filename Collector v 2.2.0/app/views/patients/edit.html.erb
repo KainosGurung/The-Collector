@@ -1,0 +1,48 @@
+<title>Edit Client: <%= session[:edit_patient_original_name] %></title>
+
+<div data-role="header" data-position="fixed">
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Back', av_show_all_patients_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %></li>
+      <li><%= link_to 'Info', request.original_url+'#nav-panel', :class => 'ui-btn ui-btn-icon-bottom ui-icon-info' %></li>
+      <li><%= link_to 'Home', admin_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-home' %></li>
+      <li><%= link_to 'Logout', log_out_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-power' %></li>
+    </ul>
+  </div>
+</div>
+
+<div data-role="content">
+  <center><h2>Edit Client: <%= session[:edit_patient_original_name] %></h2></center>
+
+  <% if @patient.errors.any? %>
+      <div class='error_messages'>
+        <h2>Form is invalid</h2>
+        <ul>
+          <% for message in @patient.errors.full_messages %>
+              <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+
+  <%= form_for @patient do |f| %>
+      <h3>
+        <%= f.label :name %>
+        <%= f.text_field :patient_name %>
+      </h3>
+
+      <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+          <ul>
+            <li><%= submit_tag 'Submit', :class => 'ui-btn ui-btn-icon-bottom ui-icon-star' %></li>
+            <li><%= link_to 'Cancel', av_show_all_patients_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-delete'  %></li>
+          </ul>
+        </div>
+      </div>
+  <% end %>
+</div>
+
+<div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel">
+  <a href="#" data-icon="delete" data-rel="close">Close</a>
+  <li>Enter the new name and press submit to save.</li>
+</div>
