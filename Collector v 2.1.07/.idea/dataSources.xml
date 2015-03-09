@@ -5,6 +5,8 @@
       <driver-ref>mysql</driver-ref>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://127.0.0.1/Collector_development</jdbc-url>
+      <user-name>root</user-name>
+      <user-password>dfc9dfc5dfc6dfc6dfcfdfc9dfdedfc5dfd8</user-password>
       <libraries />
     </data-source>
     <data-source source="LOCAL" name="Rails Collector: test" uuid="ec88438b-49b6-4a68-a13c-6697bd8bd8e8">
@@ -28,3 +30,4 @@
     </data-source>
   </component>
 </project>
+

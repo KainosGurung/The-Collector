@@ -1,0 +1,24 @@
+<title>Edit Behavior: <%= session[:edit_behavior_original_name] %> Error </title>
+
+<table class="background">
+  <tr class="background">
+    <td width="75px"></td>
+    <td><h2>Edit Behavior: <%= session[:edit_behavior_original_name] %> Error</h2></td>
+  </tr>
+</table>
+
+
+<% if @behavior.errors.any? %>
+    <h2>Invalid Assignment</h2>
+    <div class='error_messages' align="left">
+      <ul>
+        <% for message in @behavior.errors.full_messages %>
+            <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
+
+<br>
+<%= link_to 'Back' , av_show_all_behaviors_path , :class => 'function_button menu2' %>
+<!-- # todo make back button go back to edit form with info filled in -->

@@ -1,0 +1,33 @@
+<title>Select an Individual to assign to Provider: <%= params[:provider_name]%></title>
+
+<table class="background">
+  <tr class="background">
+    <td width="75px"></td>
+    <td><h3><center>Select an Individual to assign to Provider: <%= params[:provider_name]%></center></h3></td>
+  </tr>
+</table>
+
+<% if @patient_array != nil %>
+    <div style="height:300px;overflow: auto;">
+    <table>
+      <% @patient_array.each do |p| %>
+          <tr>
+            <td>
+              <%= link_to p.patient_name, av_create_new_patientprovider_path(params[:provider_id], p.id), data: { confirm: 'Are you sure you wish to assign provider: '+params[:provider_name]+' to individual: '+p.patient_name }, :class => 'individual_button width' %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+    </div>
+<% else %>
+    <h3>None</h3>
+<% end %>
+<br><br>
+<table>
+  <tr><td>
+    <%= link_to 'Create new individual', av_create_new_patient_and_assign_to_provider_path(params[:provider_name], params[:provider_id]), :class => 'individual_button' %>
+  </td></tr>
+</table>
+
+<%= link_to 'Back', session[:patient_show_url], :class => 'function_button menu' %>
+

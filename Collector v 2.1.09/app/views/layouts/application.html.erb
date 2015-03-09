@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<style type="text/css">
+    table.background {
+        background: url(/DDRC_Header2.jpg) no-repeat;
+        background-position: left;
+        width:370px;
+        height: 95px;
+        color: darkred;
+    }
+    tr.background {
+        display: block;
+        height: 100%;
+        border-bottom: 1px solid darkred;
+    }
+</style>
+
+<center>
+<table   style="width:30%;border:1px solid darkred;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;" >
+  <tr>
+    <td height = 50%>
+      <center>
+        <font color="#8b0000">
+        <%= yield %>
+        </font>
+        <% if session[:self_provider_id].present? %>
+          <table>
+            <tr>
+              <td><%= link_to 'Home', root_path, :class => 'function_button menu2' %></td>
+              <td><%= link_to 'Log out', log_out_path, :class => 'function_button menu2' %></td>
+            </tr>
+          </table>
+        <% end %>
+    </center></td></tr>
+</table>
+</center>
+
+</body>
+</html>

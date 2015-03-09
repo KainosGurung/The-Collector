@@ -1,0 +1,33 @@
+<title>Inactive Behaviors</title>
+
+<table class="background">
+  <tr class="background">
+    <td width="75px"></td>
+    <td><h1>Inactive Behaviors</h1></td>
+  </tr>
+</table>
+
+<% if @behavior_array != nil %>
+    <div style="height:300px;overflow: auto;">
+      <table width ="50%" align="center"><tr><td>
+        <% @behavior_array.each do |b| %>
+            <ul class ="collapsibleList">
+              <li><%= button_tag b.behavior_name,:type => 'button',:class => 'behavior_button full' %>
+                <ul>
+                  <div align="right">
+                    <li><%= link_to 'Reactivate',av_reactivate_behavior_path(id: b.id), data: { confirm: 'Are you sure you wish to reactivate behavior: '+b.behavior_name }, :class => 'function_button menu' %> </li><br><br>
+                    <li><%= link_to 'Destroy', av_destroy_behavior_path(id: b.id), data: { confirm: 'Are you sure you wish to destroy behavior: '+b.behavior_name+ '? This will eliminate all incidents with this behavior!' }, :class => 'function_button menu' %></li>
+                  </div>
+                </ul>
+              </li>
+            </ul>
+        <% end %>
+      </td></tr></table>
+      <script>CollapsibleLists.apply();</script>
+    </div>
+<% else %>
+    <h3>None</h3>
+<% end %>
+<br>
+<%= link_to 'Back', av_show_all_behaviors_path, :class => 'function_button menu' %>
+

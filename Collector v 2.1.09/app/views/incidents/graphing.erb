@@ -1,0 +1,132 @@
+<% count = 0%>
+<% @incident_array.each do |i| %>
+    <% count+=1 %>
+<% end %>
+
+<script type="text/javascript">
+    date = new Array();
+    frequency = new Array();
+    var j = 0;
+    var number = 0;
+    var value = 0;
+</script>
+<% @incident_array.each do |i| %>
+    <script type="text/javascript">
+        if(j==0)
+        {
+            temp = <%= i.created_at.month %>+"-"+<%= i.created_at.day %> ;
+            date[0] = temp;
+            frequency[0]++;
+            value++;
+            j++;
+        }
+        else
+        {
+            j++;
+            if(temp == <%= i.created_at.month %>+"-"+<%= i.created_at.day %> )
+            {
+                value++;
+
+            }else{
+                frequency[number]=value;
+                number++;
+                date[number] = <%= i.created_at.month %>+"-"+<%= i.created_at.day %>;
+                frequency[number]=1;
+                value=1;
+                temp = <%= i.created_at.month %>+"-"+<%= i.created_at.day %>;
+            }
+        }
+        if(j == <%= count %>){
+            frequency[number]=value;
+        }
+    </script>
+<% end %>
+
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <script src="http://code.jquery.com/jquery-1.9.1.js" type="text/javascript"></script>
+  <script src="http://code.highcharts.com/highcharts.js" type="text/javascript"></script>
+  <script src="http://code.highcharts.com/modules/exporting.js" type="text/javascript"></script>
+  <script type="text/javascript">
+
+
+      $(function() {
+          $('#container').highcharts({
+              title: {
+                  text: 'Graphing of Tracked Behaviors',
+                  x: -20 //center
+              },
+              xAxis: {
+                  categories: date
+
+              },
+              plotOptions: {
+                  series: {
+                      allowPointSelect: true
+                  }
+              },
+              yAxis: {
+                  title: {
+                      text: 'Frequency'
+                  },
+                  plotLines: [{
+                      value: 0,
+                      width: 1,
+                      color: '#808080'
+                  }]
+              },
+              legend: {
+                  layout: 'vertical',
+                  align: 'right',
+                  verticalAlign: 'middle',
+                  borderWidth: 0
+              },
+
+              series: [
+                  {
+                      name:'incidents',
+                      data: frequency
+                  }
+              ]
+          });
+          $('#button').click(function () {
+              var chart = $('#container').highcharts(),
+                      selectedPoints = chart.getSelectedPoints();
+              alert('You selected ' + selectedPoints.length + ' points');
+          });
+      });
+  </script>
+</head>
+<body>
+<div id="container" style="min-width: 800px; height: 400px; margin: 0 auto"></div>
+<body>
+<form action="\admin\incidents\graphing" >
+
+  <select name="provider">
+    <option value="0">Select a Provider</option>
+    <% @provider_array.each do |i| %>
+        <option value="<%= i.first %>"><%= i.second %></option>
+    <% end %>
+  </select>
+
+  <select name="patient">
+    <option value="0">Select a Patient</option>
+    <% @patient_array.each do |i| %>
+        <option value="<%= i.first %>"><%= i.second %></option>
+    <% end %>
+  </select>
+
+  <select name="behavior">
+    <option value="0">Select a Behavior</option>
+    <% @behavior_array.each do |i| %>
+        <option value="<%= i.first %>"><%= i.second %></option>
+    <% end %>
+  </select>
+
+  <input type="submit" value="Submit">
+
+</form>
+</body>
+</body>
+</html>

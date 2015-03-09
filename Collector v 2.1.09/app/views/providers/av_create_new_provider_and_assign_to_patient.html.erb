@@ -1,0 +1,44 @@
+<title>Create new Provider and assign to Individual: <%= params[:patient_name]%></title>
+
+<table class="background">
+  <tr class="background">
+    <td width="75px"></td>
+    <td><h3><center>Create new Provider and assign to Individual: <%= params[:patient_name]%></center></h3></td>
+  </tr>
+</table>
+
+<!-- Creates a form for our provider model -->
+<%= form_for @provider do |f| %>
+
+    <!-- If there's any errors whilst signing up, display error messages (generated from provider model, ie. field validations) -->
+    <% if @provider.errors.any? %>
+        <div class='error_messages'>
+          <h2>Form is invalid</h2>
+          <ul>
+            <% for message in @provider.errors.full_messages %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <h3>
+    <p>
+      <%= f.label :provider_name %><br />
+      <%= f.text_field :provider_name %>
+    </p>
+    <p>
+      <%= f.label :password %><br />
+      <%= f.password_field :password %>
+    </p>
+    <p>
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation %>
+    </p>
+    </h3>
+    <%= hidden_field_tag :patient_id, params[:patient_id] %>
+    <%= f.submit 'Submit', :class => 'function_button' %>
+    <%= link_to 'Cancel', root_path, :class => 'function_button' %>
+<% end %>
+<table>
+  <tr><td><%= link_to 'Back', session[:provider_list_url], :class => 'function_button menu' %></td></tr>
+</table>
