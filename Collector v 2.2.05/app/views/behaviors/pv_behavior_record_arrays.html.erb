@@ -1,0 +1,53 @@
+<title>Tracked Clients</title>
+
+<div data-role="header" data-position="fixed">
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Back', provider_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %></li>
+      <li><%= link_to 'Info', request.original_url+'#nav-panel', :class => 'ui-btn ui-btn-icon-bottom ui-icon-info' %></li>
+      <li><%= link_to 'Home', provider_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-home' %></li>
+      <li><%= link_to 'Logout', log_out_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-power' %></li>
+    </ul>
+  </div>
+</div>
+
+<% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, :id => "flash_#{name}" %>
+<% end %>
+
+<div data-role="content">
+  <center><h2>Tracked Clients</h2></center>
+
+  <% i = 0 %>
+  <% if session[:patient_id_array] != nil && session[:patient_id_array].empty? != true%>
+      <% while i < session[:patient_name_array].length %>
+          <div data-role="collapsible" data-collapsed="true" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
+            <h4><%= session[:patient_name_array][i] %></h4>
+            <ul data-role="listview" data-theme="a" style="opacity: 0.5">
+              <% j = 0 %>
+              <% if @behavior_name_array[i].length != 0 %>
+                  <% while j < @behavior_name_array[i].length %>
+                      <li><%= link_to @behavior_name_array[i][j],
+                                      add_incident_path(session[:self_provider_id],session[:patient_id_array][i],@behavior_id_array[i][j]),
+                                      data: { confirm: 'Confirm add incident of behavior: '+@behavior_name_array[i][j]+' for Client: '+session[:patient_name_array][i]} %></li>
+                      <% j += 1 %>
+                  <% end %>
+              <% else %>
+                  <li>NONE</li>
+              <% end %>
+            </ul>
+          </div>
+          <% i += 1 %>
+      <% end %>
+  <% else %>
+      <h3>None</h3>
+  <% end %>
+</div>
+
+<div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel">
+  <a href="#" data-icon="delete" data-rel="close" class="ui-btn ui-btn-icon-right ui-icon-delete">Close</a>
+  <ul>
+    <li>Select a Client to view the available options.</li>
+    <li>Select a Behavior to record an Incident of the Behavior for the selected Client.</li>
+  </ul>
+</div>

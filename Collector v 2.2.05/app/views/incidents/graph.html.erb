@@ -1,0 +1,29 @@
+<title>Incidents Graph</title>
+
+<div data-role="header" data-position="fixed">
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Back', av_show_all_incidents_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %></li>
+      <li><%= link_to 'Info', request.original_url+'#nav-panel', :class => 'ui-btn ui-btn-icon-bottom ui-icon-info' %></li>
+      <li><%= link_to 'Home', admin_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-home' %></li>
+      <li><%= link_to 'Logout', log_out_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-power' %></li>
+    </ul>
+  </div>
+</div>
+
+<div data-role="content">
+
+  <% beh_id = 2 %>
+  <%= line_chart Incident.group(:created_at).count %>
+
+  <%= line_chart Incident.where(:behavior_id => '*').group(:created_at).count %>
+
+
+</div>
+
+<div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel">
+  <a href="#" data-icon="delete" data-rel="close" class="ui-btn ui-btn-icon-right ui-icon-delete">Close</a>
+  <ul>
+    <li>#TODO</li>
+  </ul>
+</div>

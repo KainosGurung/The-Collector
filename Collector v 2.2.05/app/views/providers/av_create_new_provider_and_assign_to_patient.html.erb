@@ -1,0 +1,58 @@
+<title>Create new Provider and assign to Client: <%= params[:patient_name] %></title>
+
+<div data-role="header" data-position="fixed">
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Back', session[:provider_list_url], :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %></li>
+      <li><%= link_to 'Info', request.original_url+'#nav-panel', :class => 'ui-btn ui-btn-icon-bottom ui-icon-info' %></li>
+      <li><%= link_to 'Home', admin_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-home' %></li>
+      <li><%= link_to 'Logout', log_out_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-power' %></li>
+    </ul>
+  </div>
+</div>
+
+<div data-role="content">
+  <center><h2>Create new Provider and assign to Client: <%= params[:patient_name] %></h2></center>
+
+  <% if @provider.errors.any? %>
+      <div class='error_messages'>
+        <h2>Form is invalid</h2>
+        <ul>
+          <% for message in @provider.errors.full_messages %>
+              <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+
+  <%= form_for @provider do |f| %>
+      <h3>
+        <%= f.label :provider_name %>
+        <%= f.text_field :provider_name %>
+
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation %>
+      </h3>
+
+      <%= hidden_field_tag :patient_id, params[:patient_id] %>
+
+      <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+          <ul>
+            <li><%= submit_tag 'Submit', :class => 'ui-btn ui-btn-icon-bottom ui-icon-star' %></li>
+            <li><%= link_to 'Cancel', session[:provider_list_url], :class => 'ui-btn ui-btn-icon-bottom ui-icon-delete'  %></li>
+          </ul>
+        </div>
+      </div>
+  <% end %>
+</div>
+
+<div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel">
+  <a href="#" data-icon="delete" data-rel="close" class="ui-btn ui-btn-icon-right ui-icon-delete">Close</a>
+  <ul>
+    <li>Enter the new providers name and password. Press submit to save and assign the provider to the client.</li>
+  </ul>
+</div>
