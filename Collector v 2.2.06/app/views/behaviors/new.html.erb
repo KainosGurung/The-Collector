@@ -1,0 +1,54 @@
+<title>Create new Behavior</title>
+
+<div data-role="header" data-position="fixed">
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Back', av_show_all_behaviors_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %></li>
+      <li><%= link_to 'Info', request.original_url+'#nav-panel', :class => 'ui-btn ui-btn-icon-bottom ui-icon-info' %></li>
+      <li><%= link_to 'Home', admin_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-home' %></li>
+      <li><%= link_to 'Logout', log_out_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-power' %></li>
+    </ul>
+  </div>
+</div>
+
+<div data-role="content">
+  <center><h2>Create new Behavior</h2></center>
+
+  <% if @behavior.errors.any? %>
+      <div class='error_messages'>
+        <h2>Form is invalid</h2>
+        <ul>
+          <% for message in @behavior.errors.full_messages %>
+              <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+
+  <%= form_for @behavior do |f| %>
+      <h3>
+        <%= f.label :behavior_name %>
+        <%= f.text_field :behavior_name %>
+
+        <%= f.label :behavior_description %>
+        <%= f.text_area :behavior_description %>
+      </h3>
+
+      <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+          <ul>
+            <li><%= submit_tag 'Submit', :class => 'ui-btn ui-btn-icon-bottom ui-icon-star' %></li>
+            <li><%= link_to 'Cancel', av_show_all_behaviors_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-delete'  %></li>
+          </ul>
+        </div>
+      </div>
+  <% end %>
+</div>
+
+<div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel">
+  <a href="#" data-icon="delete" data-rel="close" class="ui-btn ui-btn-icon-right ui-icon-delete">Close</a>
+  <ul>
+    <li>Enter the new Behavior's name and a description.</li>
+    <li>Press Submit to assign the Behavior to the Client.</li>
+  </ul>
+</div>

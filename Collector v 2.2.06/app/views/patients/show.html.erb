@@ -1,0 +1,68 @@
+<title>Clients assigned to Provider: <%= params[:provider_name] %></title>
+
+<div data-role="header" data-position="fixed">
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Back', av_show_all_providers_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %></li>
+      <li><%= link_to 'Info', request.original_url+'#nav-panel', :class => 'ui-btn ui-btn-icon-bottom ui-icon-info' %></li>
+      <li><%= link_to 'Home', admin_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-home' %></li>
+      <li><%= link_to 'Logout', log_out_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-power' %></li>
+    </ul>
+  </div>
+</div>
+
+<div data-role="content">
+  <center><h2>Clients assigned to Provider: <%= params[:provider_name] %></h2></center>
+
+  <% if @patient_show_array != nil %>
+      <% @patient_show_array.each do |p| %>
+          <div data-role="collapsible" data-collapsed="true" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
+            <h4><%= p.patient_name %></h4>
+            <ul data-role="listview" data-theme="a" style="opacity: 0.5">
+              <li><%= link_to 'Behaviors', av_show_behaviors_path(p.patient_name, p.id) %></li>
+              <li><a href="#popup-unassign-patient-<%= p.id %>" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn" >Unassign</a></li>
+            </ul>
+          </div>
+
+          <div data-role="popup" id="popup-unassign-patient-<%= p.id %>" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width: 100%;">
+            <h3 class="ui-title" align="center">
+              Unassign Provider: <%= params[:provider_name] %><br>
+              From Client: <%= p.patient_name %>
+            </h3>
+            <div role="main" class="ui-content" data-theme="b">
+              <div data-role="footer">
+                <div data-role="navbar">
+                  <ul>
+                    <li><a href="#" data-rel="back">Cancel</a></li>
+                    <li><%= link_to 'Confirm', delete_patientprovider_path(params[:provider_id], p.id) %></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      <% end %>
+  <% else %>
+      <h3>None</h3>
+  <% end %>
+</div>
+
+<div data-role="footer" data-position="fixed">
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Add new Client', av_show_all_patients_to_add_to_provider_path(params[:provider_name], params[:provider_id], params[:patient_id_array]), :class => 'ui-btn ui-btn-icon-bottom ui-icon-plus' %></li>
+    </ul>
+  </div>
+</div>
+
+<div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel">
+  <a href="#" data-icon="delete" data-rel="close" class="ui-btn ui-btn-icon-right ui-icon-delete">Close</a>
+  <ul>
+    <li>Press a client name to list the available options.</li>
+    <li>Press behaviors to list the selected clients tracked behaviors.</li>
+    <li>Press unassign to unassign the client from the provider.</li>
+    <li>Select add new client to assign a client to the provider.</li>
+  </ul>
+</div>
+
+
