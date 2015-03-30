@@ -1,0 +1,64 @@
+<% content_for :title do %>
+    Behavior List
+<% end %>
+
+<% content_for :header do %>
+    <%= link_to 'Back', admin_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %>
+<% end %>
+
+  <h2>Behavior List</h2>
+
+  <form><input data-type="search" id="searchForCollapsibleSet" data-theme="a" ></form>
+  <% if @behavior_array != nil && @behavior_array.empty? != true%>
+      <div data-role="collapsibleset" data-filter="true" data-inset="true" id="collapsiblesetForFilter" data-input="#searchForCollapsibleSet">
+
+        <% @behavior_array.each do |b| %>
+            <div data-role="collapsible" data-collapsed="true" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
+              <h4><%= b.behavior_name %></h4>
+              <ul data-role="listview" data-theme="a" style="opacity: 0.5">
+                <li><%=  'Description: '+b.behavior_description%></li>
+                <li><%= link_to 'Edit',av_edit_behavior_path(b.id) %></li>
+                <li><a href="#popup-deactivate-behavior-<%= b.id %>" data-rel="popup" data-position-to="window" data-transition="pop" >Deactivate</a></li>
+              </ul>
+            </div>
+
+            <div data-role="popup" id="popup-deactivate-behavior-<%= b.id %>" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width: 100%;">
+              <h3 class="ui-title" align="center">Deactivate Behavior: <br> <%= b.behavior_name %></h3>
+              <div role="main" class="ui-content" data-theme="b">
+                <div data-role="footer">
+                  <div data-role="navbar">
+                    <ul>
+                      <li><a href="#" data-rel="back">Cancel</a></li>
+                      <li><%= link_to 'Confirm', av_deactivate_behavior_path(id: b.id) %></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        <% end %>
+      </div>
+  <% else %>
+      <h3>None</h3>
+  <% end %>
+
+<div data-role="footer" data-position="fixed">
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Create New', av_create_new_behavior_path,
+                      :class => 'ui-btn ui-btn-icon-bottom ui-icon-plus' %></li>
+      <li><%= link_to 'List Inactive', av_show_all_inactive_behaviors_path,
+                      :class => 'ui-btn ui-btn-icon-bottom ui-icon-bars'  %></li>
+    </ul>
+  </div>
+</div>
+
+<% content_for :panel do %>
+    <ul>
+      <li>Select a Behavior to view the description and the available actions.</li>
+      <li>Press the Edit button to edit the Behavior's name and/or description.</li>
+      <li>Press the Deactivate button to deactivate the selected Behavior.</li>
+      <li>Press the Create New button to create a new Behavior.</li>
+      <li>Press the List Inactive button to view the inactive Behaviors.</li>
+    </ul>
+<% end %>
