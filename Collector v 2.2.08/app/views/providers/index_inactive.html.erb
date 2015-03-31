@@ -1,0 +1,66 @@
+<% content_for :title do %>
+    Inactive Providers
+<% end %>
+
+<% content_for :header do %>
+    <%= link_to 'Back', av_show_all_providers_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %>
+<% end %>
+
+  <h2>Inactive Providers</h2>
+
+  <form><input data-type="search" id="searchForCollapsibleSet" data-theme="a" ></form>
+  <% if @inactive_provider_array != nil && @inactive_provider_array.empty? != true %>
+      <div data-role="collapsibleset" data-filter="true" data-inset="true" id="collapsiblesetForFilter" data-input="#searchForCollapsibleSet">
+        <% @inactive_provider_array.each do |p| %>
+            <div data-role="collapsible" data-collapsed="true" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
+            <h4><%= p.provider_name %></h4>
+              <ul data-role="listview" data-theme="a" style="opacity: 0.5;">
+                <li><a href="#popup-reactivate-provider-<%= p.id %>" data-rel="popup" data-position-to="window" data-transition="pop" >Reactivate</a></li>
+                <li><a href="#popup-destroy-provider-<%= p.id %>" data-rel="popup" data-position-to="window" data-transition="pop" >Destroy</a></li>
+              </ul>
+            </div>
+
+            <div data-role="popup" id="popup-reactivate-provider-<%= p.id %>" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width: 100%;">
+              <h3 class="ui-title" align="center">Reactivate Provider: &nbsp <br> <%=p.provider_name %></h3>
+              <div role="main" class="ui-content" data-theme="b">
+                <div data-role="footer">
+                  <div data-role="navbar">
+                    <ul>
+                      <li><a href="#" data-rel="back">Cancel</a></li>
+                      <li><%= link_to 'Confirm', av_reactivate_provider_path(id: p.id) %></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div data-role="popup" id="popup-destroy-provider-<%= p.id %>" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width: 100%;">
+              <h3 class="ui-title" align="center">
+                Destroy Provider: <br> <%= p.provider_name %> <br><br>
+                Warning! This will delete all Incidents associated with this Provider!
+              </h3>
+              <div role="main" class="ui-content" data-theme="b">
+                <div data-role="footer">
+                  <div data-role="navbar">
+                    <ul>
+                      <li><a href="#" data-rel="back">Cancel</a></li>
+                      <li><%= link_to 'Confirm', av_destroy_provider_path(id: p.id) %></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        <% end %>
+      </div>
+  <% else %>
+      <h3>None</h3>
+  <% end %>
+
+<% content_for :panel do %>
+    <ul>
+      <li>Press a providers name to list the available options.</li>
+      <li>Press reactivate to return the provider to the active lists.</li>
+      <li>Select the destroy button to permanently remove the provider.</li>
+    </ul>
+<% end %>
