@@ -1,0 +1,57 @@
+<% content_for :title do %>
+    Create new Provider
+<% end %>
+
+<% content_for :header do %>
+    <%= link_to 'Back', av_show_all_providers_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %>
+<% end %>
+
+  <h2>Create new Provider</h2>
+
+  <% if @provider.errors.any? %>
+      <div class='error_messages'>
+        <h2>Form is invalid</h2>
+        <ul>
+          <% for message in @provider.errors.full_messages %>
+              <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+
+  <%= form_for @provider do |f| %>
+      <h3>
+        <%= f.label :provider_name %>
+        <%= f.text_field :provider_name %>
+
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation %>
+      </h3>
+
+      <fieldset data-role="controlgroup" data-type="horizontal">
+        <input type="radio" name="set_admin" id="radio-choice-h-2a" value="1" >
+        <label for="radio-choice-h-2a">Admin</label>
+        <input type="radio" name="set_admin" id="radio-choice-h-2b" value="0" checked="checked">
+        <label for="radio-choice-h-2b">Provider</label>
+      </fieldset>
+
+      <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+          <ul>
+            <li><%= submit_tag 'Submit', :class => 'ui-btn ui-btn-icon-bottom ui-icon-star' %></li>
+            <li><%= link_to 'Cancel', av_show_all_providers_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-delete'  %></li>
+          </ul>
+        </div>
+      </div>
+  <% end %>
+
+<% content_for :panel do %>
+    <ul>
+      <li>Enter the new providers name and password.</li>
+      <li>Select if they are an administrator or not.</li>
+      <li>Press submit to save.</li>
+    </ul>
+<% end %>
