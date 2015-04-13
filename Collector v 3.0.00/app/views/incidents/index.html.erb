@@ -1,0 +1,61 @@
+<% content_for :title do %>
+    Incidents List<% end %>
+
+<% content_for :header do %>
+    <%= link_to 'back',
+                if session[:self_super_admin]
+                  super_admin_home_path
+                elsif session[:self_admin]
+                  admin_home_path
+                end,
+                :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %>
+<% end %>
+
+<% count = 0%>
+<div align="left">
+  <center><h2>Incidents List</h2></center>
+
+  <form><input id="filterTable-input" data-type="search" data-theme="a"></form>
+
+  <table data-role="table" id="table-custom-2" data-mode="columntoggle" class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="b" data-column-btn-text="Columns to display..." data-column-popup-theme="a" data-filter="true" data-input="#filterTable-input">
+    <thead>
+    <tr class="ui-bar-d">
+      <th data-priority="3">ID</th>
+      <th data-priority="1">Provider</th>
+      <th data-priority="1">Client</th>
+      <th data-priority="1">Behavior</th>
+      <th data-priority="2">Timestamp</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @incident_array.each do |i| %>
+        <tr>
+          <td><%= count+=1 %></td>
+          <td><%= i.provider.provider_name %></td>
+          <td><%= i.patient.patient_name %></td>
+          <td><%= i.behavior.behavior_name %></td>
+          <td><%= i.created_at.year %>-<%= i.created_at.month %>-<%= i.created_at.day %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Download Excel File', av_index_excel_path(format: "xls"), :class => 'ui-btn ui-shadow ui-corner-all ui-btn-icon-bottom ui-icon-arrow-d' %></li>
+      <li><%= link_to 'Graphs', av_show_select_incident_graph_path('0','0','0'), :class => 'ui-btn ui-shadow ui-corner-all ui-btn-icon-bottom ui-icon-arrow-r' %></li>
+
+    </ul>
+  </div>
+</div>
+
+
+<% content_for :panel do %>
+    <ul>
+      <li>Press the columns to display button to select the columns to display.</li>
+      <li>Press the Download Excel File button to save a copy of the data in .xls format.</li>
+    </ul>
+<% end %>
+

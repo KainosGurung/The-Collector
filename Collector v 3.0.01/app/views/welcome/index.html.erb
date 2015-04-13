@@ -1,0 +1,26 @@
+<% content_for :title do %>
+    The Collector
+<% end %>
+
+<% content_for :header do %>
+    <%= link_to 'Back', :back, :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %>
+<% end %>
+
+<div data-role="header" align="center">
+  <%= image_tag "/DDRC_Icon.png" %>
+</div>
+
+  <h1>The Collector</h1>
+
+  <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+  <% end %><br>
+
+ <%= link_to 'Log in', log_in_path, :class => 'ui-btn ui-btn-inline' %>
+
+<% content_for :panel do %>
+    <ul>
+      <li>#TODO</li>
+    </ul>
+<% end %>
+

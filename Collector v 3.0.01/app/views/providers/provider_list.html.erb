@@ -1,0 +1,52 @@
+<% content_for :title do %>
+    Select a Provider to promote to Admin
+<% end %>
+
+<% content_for :header do %>
+    <%= link_to 'Back', sav_show_all_admins_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %>
+<% end %>
+
+<h2>Select a Provider to promote to Admin</h2>
+
+<% if @provider_list_array != nil && @provider_list_array.empty? != true %>
+    <% @provider_list_array.each do |p| %>
+        <a href="#popup-assign-provider-<%= p.id %>" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn" ><%= p.provider_name %></a>
+
+        <div data-role="popup" id="popup-assign-provider-<%= p.id %>" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width: 100%;">
+          <h3 class="ui-title" align="center">
+            Promote Provider: <%= p.provider_name %><br>
+            To Admin
+          </h3>
+          <div role="main" class="ui-content" data-theme="b">
+            <div data-role="footer">
+              <div data-role="navbar">
+                <ul>
+                  <li><a href="#" data-rel="back">Cancel</a></li>
+                  <li><%= link_to 'Confirm', sav_promote_to_admin_path(provider_id: p.id) %></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    <% end %>
+<% else %>
+    <h3>None</h3>
+<% end %>
+
+
+<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Create new Admin', av_create_new_admin_path,
+                      :class => 'ui-btn ui-btn-icon-bottom ui-icon-plus' %></li>
+    </ul>
+  </div>
+</div>
+
+<% content_for :panel do %>
+    <ul>
+      <li>Press a providers name to assign the client to them.</li>
+      <li>Press create new provider to create a new provider and assign the client to them.</li>
+    </ul>
+<% end %>

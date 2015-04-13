@@ -1,0 +1,44 @@
+<% content_for :title do %>
+    Log in
+<% end %>
+
+<% content_for :header do %>
+    <%= link_to 'Back', root_path , :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %>
+<% end %>
+
+<div data-role="header" align="center">
+  <%= image_tag "/DDRC_Icon.png" %>
+</div>
+
+  <h1>Log in</h1>
+
+  <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+  <% end %><br>
+
+  <%=form_tag log_in_path do%>
+      <h3>
+        <%=label_tag :provider_name %>
+        <%=text_field_tag :provider_name %>
+
+        <%=label_tag :password %>
+        <%=password_field_tag :password %>
+      </h3>
+
+      <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div data-role="navbar">
+          <ul>
+            <li><%= submit_tag 'Log in', :class => 'ui-btn' %></li>
+            <li><%= link_to 'Cancel', root_path, :class => 'ui-btn'  %></li>
+          </ul>
+        </div>
+      </div>
+  <%end%>
+
+<% content_for :panel do %>
+    <ul>
+      <li>#TODO</li>
+    </ul>
+<% end %>
+
+
