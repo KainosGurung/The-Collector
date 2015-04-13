@@ -1,0 +1,84 @@
+<% content_for :title do %>
+    Tracked Behaviors for Client: <%=  params[:patient_name] %>
+<% end %>
+
+<% content_for :header do %>
+    <%= link_to 'Back',
+         if session[:patient_show_behavior_redirect_flag] == 1
+           av_show_all_providers_path
+         elsif session[:patient_show_behavior_redirect_flag] == 0
+           session[:patient_show_url]
+         end,
+         :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %>
+<% end %>
+
+  <h2>Tracked Behaviors for Client: <%=  params[:patient_name] %></h2>
+
+  <% if @behavior_show_array != nil %>
+      <% @behavior_show_array.each do |b| %>
+          <div data-role="collapsible" data-collapsed="true" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
+            <h4><%= b.behavior_name %></h4>
+            <ul data-role="listview" data-theme="a" style="opacity: 0.5">
+              <li><a href="#popup-add-incident-<%= b.id %>" data-rel="popup" data-position-to="window" data-transition="pop" >Add Incident</a></li>
+              <li><a href="#popup-unassign-behavior-<%= b.id %>" data-rel="popup" data-position-to="window" data-transition="pop" >Unassign</a></li>
+            </ul>
+          </div>
+
+
+          <div data-role="popup" id="popup-add-incident-<%= b.id %>" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width: 100%;">
+            <h3 class="ui-title" align="center">
+              Add Incident of Behavior: <%= b.behavior_name %> <br>
+              For Client: <%= params[:patient_name] %>
+            </h3>
+            <div role="main" class="ui-content" data-theme="b">
+              <div data-role="footer">
+                <div data-role="navbar">
+                  <ul>
+                    <li><a href="#" data-rel="back">Cancel</a></li>
+                    <li><%= link_to 'Confirm', add_incident_path(session[:self_provider_id], params[:patient_id], b.id) %></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div data-role="popup" id="popup-unassign-behavior-<%= b.id %>" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width: 100%;">
+            <h3 class="ui-title" align="center">
+              Unassign Behavior: <%= b.behavior_name %> <br>
+              From Client: <%= params[:patient_name] %>
+            </h3>
+            <div role="main" class="ui-content" data-theme="b">
+              <div data-role="footer" >
+                <div data-role="navbar">
+                  <ul>
+                    <li><a href="#" data-rel="back">Cancel</a></li>
+                    <li><%= link_to 'Confirm', delete_patientbehavior_path(params[:patient_id], b.id) %></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      <% end %>
+  <% else %>
+      <h3>None</h3>
+  <% end %>
+
+
+<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Add new behavior', av_show_all_behaviors_to_add_to_patient_path(params[:patient_name], params[:patient_id]), :class => 'ui-btn ui-btn-icon-bottom ui-icon-plus' %></li>
+    </ul>
+  </div>
+</div>
+
+<% content_for :panel do %>
+    <ul>
+      <li>Select a Behavior to view the available options.</li>
+      <li>Press the Add Incident button to record an Incident of the Behavior for the selected Client.</li>
+      <li>Press the Remove button to stop tracking the Behavior for the selected Client.</li>
+      <li>Press the Add New Behavior button to track another behavior for the selected Client.</li>
+    </ul>
+<% end %>
