@@ -1,0 +1,35 @@
+<% content_for :title do %>
+    Incidents Graph
+<% end %>
+
+<% content_for :header do %>
+    <%= link_to 'Back', session[:incident_select_url], :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %>
+<% end %>
+
+If only a white screen appears, then there is no incident data for this query.
+<center>
+<table>
+  <tr>
+    <td>
+      <%= line_chart @incident.group_by_date(:created_at).count %>
+    </td>
+    <td>
+      <%= pie_chart @incident.group(:created_at).count %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= column_chart @incident.group(:created_at).count %>
+    </td>
+    <td>
+      <%= bar_chart @incident.group(:created_at).count %>
+    </td>
+  </tr>
+</table>
+</center>
+
+<% content_for :panel do %>
+    <ul>
+      <li>#TODO</li>
+    </ul>
+<% end %>

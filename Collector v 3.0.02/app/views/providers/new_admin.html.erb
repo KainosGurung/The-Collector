@@ -1,0 +1,49 @@
+<% content_for :title do %>
+    Create new Admin
+<% end %>
+
+<% content_for :header do %>
+    <%= link_to 'Back', sav_show_all_admins_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %>
+<% end %>
+
+<h2>Create new Admin</h2>
+
+<% if @provider.errors.any? %>
+  <div class='error_messages'>
+    <h2>Form is invalid</h2>
+    <ul>
+      <% for message in @provider.errors.full_messages %>
+          <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for @provider do |f| %>
+    <h3>
+        <%= f.label :provider_name %>
+        <%= f.text_field :provider_name %>
+
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation %>
+    </h3>
+
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+    <div data-role="navbar">
+      <ul>
+        <li><%= submit_tag 'Submit', :class => 'ui-btn' %></li>
+        <li><%= link_to 'Cancel', sav_show_all_admins_path, :class => 'ui-btn'  %></li>
+      </ul>
+    </div>
+    </div>
+<% end %>
+
+<% content_for :panel do %>
+    <ul>
+      <li>Enter the new Admin's name and password.</li>
+      <li>Press submit to save.</li>
+    </ul>
+<% end %>
