@@ -1,0 +1,51 @@
+<% content_for :title do %>
+    Select a Behavior to assign to Client: <%= params[:patient_name] %>
+<% end %>
+
+<% content_for :header do %>
+    <%= link_to 'Back', session[:behavior_show_url], :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %>
+<% end %>
+
+  <h2>Select a Behavior to assign to Client: <%= params[:patient_name] %></h2>
+
+  <% if @behavior_list_array != nil && @behavior_list_array.empty? != true %>
+      <% @behavior_list_array.each do |b| %>
+          <a href="#popup-assign-behavior-<%= b.id %>" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn" ><%= b.behavior_name %></a>
+
+          <div data-role="popup" id="popup-assign-behavior-<%= b.id %>" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width: 100%;">
+            <h3 class="ui-title" align="center">
+              Assign Behavior: <%= b.behavior_name %><br>
+              to Client: <%= params[:patient_name] %>
+            </h3>
+            <div role="main" class="ui-content" data-theme="b">
+              <div data-role="footer">
+                <div data-role="navbar">
+                  <ul>
+                    <li><a href="#" data-rel="back">Cancel</a></li>
+                    <li><%= link_to 'Confirm', av_create_new_patientbehavior_path(params[:patient_id], b.id) %></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      <% end %>
+  <% else %>
+      <h3>None</h3>
+  <% end %>
+
+<div data-role="footer" data-position="fixed" data-tap-toggle="false">
+  <div data-role="navbar">
+    <ul>
+      <li><%= link_to 'Create new behavior', av_create_new_behavior_and_add_to_patient_path(params[:patient_name], params[:patient_id]),
+                      :class => 'ui-btn ui-btn-icon-bottom ui-icon-plus' %></li>
+    </ul>
+  </div>
+</div>
+
+<% content_for :panel do %>
+    <ul>
+      <li>Select a Behavior to view the available options.</li>
+      <li>Press the create new button to create a new Behavior and automatically assign it to the Client selected.</li>
+    </ul>
+<% end %>
