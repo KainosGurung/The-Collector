@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title><%= yield :title %></title>
+</head>
+<body>
+    <div data-role="page" data-theme="b" data-url="<%= request.path %>">
+      <% unless flash.empty? %>
+          <script type="text/javascript">
+              <% flash.each do |f| %>
+              <% type = f[0].gsub('alert', 'error').gsub('success', 'success').gsub('info', 'info') %>
+              toastr["<%= type %>"]("<%= f[1] %>");
+              <% end %>
+          </script>
+      <% end %>
+
+      <div data-role="header" data-position="fixed" data-tap-toggle="false">
+        <div data-role="navbar">
+          <ul>
+            <li><%= yield :header %></li>
+            <li><%= link_to 'Info', request.original_url+'#nav-panel', :class => 'ui-btn ui-btn-icon-bottom ui-icon-info' %></li>
+            <li><%= link_to 'Home',
+                            if session[:self_super_admin] == 1
+                               super_admin_home_path
+                            elsif session[:self_admin] == 1
+                               admin_home_path
+                            elsif session[:self_provider_id]
+                               provider_home_path
+                            else
+                               root_path
+                            end,
+                            :class => 'ui-btn ui-btn-icon-bottom ui-icon-home' %></li>
+            <li><%= link_to 'Logout', log_out_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-power' %></li>
+          </ul>
+        </div>
+      </div>
+
+      <div data-role="content" style="text-align: center">
+        <%= yield %>
+      </div>
+
+      <div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel">
+        <a href="#" data-icon="delete" data-rel="close" class="ui-btn ui-btn-icon-right ui-icon-delete">Close</a>
+        <%= yield :panel %>
+      </div>
+    </div>
+</body>
+</html>
