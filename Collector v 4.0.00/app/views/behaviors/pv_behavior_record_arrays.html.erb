@@ -1,0 +1,59 @@
+<% content_for :title do %>
+    Tracked Clients
+<% end %>
+
+<% content_for :header do %>
+    <%= link_to 'Back', provider_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %>
+<% end %>
+
+<h2>Tracked Clients</h2>
+
+<% i = 0 %>
+<% if session[:patient_id_array] != nil && session[:patient_id_array].empty? != true%>
+    <% while i < session[:patient_name_array].length %>
+        <div data-role="collapsible" data-collapsed="true" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="right">
+          <h4><%= session[:patient_name_array][i] %></h4>
+          <ul data-role="listview" data-theme="a" style="opacity: 0.5">
+            <% j = 0 %>
+            <% if @behavior_name_array[i].length != 0 %>
+                <% while j < @behavior_name_array[i].length %>
+
+                    <li><a href="#popup-add-incident-<%= i %>-<%= @behavior_id_array[i][j] %>" data-rel="popup" data-position-to="window" data-transition="pop" ><%= @behavior_name_array[i][j] %></a></li>
+
+
+                    <div data-role="popup" id="popup-add-incident-<%= i %>-<%= @behavior_id_array[i][j] %>" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width: 100%;">
+                      <h3 class="ui-title" align="center">
+                        Add Incident of Behavior: <%= @behavior_name_array[i][j] %> <br>
+                        For Client: <%= session[:patient_name_array][i] %>
+                      </h3>
+                      <div role="main" class="ui-content" data-theme="b">
+                        <div data-role="footer">
+                          <div data-role="navbar">
+                            <ul>
+                              <li><a href="#" data-rel="back">Cancel</a></li>
+                              <li><%= link_to 'Confirm', add_incident_path(session[:self_provider_id],session[:patient_id_array][i],@behavior_id_array[i][j]) %></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <% j += 1 %>
+                <% end %>
+            <% else %>
+                <li>NONE</li>
+            <% end %>
+          </ul>
+        </div>
+        <% i += 1 %>
+    <% end %>
+<% else %>
+    <h3>None</h3>
+<% end %>
+
+<% content_for :panel do %>
+    <ul>
+      <li>Select a Client to view the available options.</li>
+      <li>Select a Behavior to record an Incident of the Behavior for the selected Client.</li>
+    </ul>
+<% end %>
