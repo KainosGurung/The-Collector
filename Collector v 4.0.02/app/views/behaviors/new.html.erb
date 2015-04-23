@@ -1,0 +1,46 @@
+<% content_for :title do %>
+    Create new Behavior
+<% end %>
+
+<% content_for :header do %>
+    <%= link_to 'Back', av_show_all_behaviors_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %>
+<% end %>
+
+  <h2>Create new Behavior</h2>
+
+  <% if @behavior.errors.any? %>
+      <div class='error_messages'>
+        <h2>Form is invalid</h2>
+        <ul>
+          <% for message in @behavior.errors.full_messages %>
+              <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+
+  <%= form_for @behavior do |f| %>
+      <h3>
+        <%= f.label :behavior_name %>
+        <%= f.text_field :behavior_name %>
+
+        <%= f.label :behavior_description %>
+        <%= f.text_area :behavior_description %>
+      </h3>
+
+      <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div data-role="navbar">
+          <ul>
+            <li><%= submit_tag 'Submit', :class => 'ui-btn' %></li>
+            <li><%= link_to 'Cancel', av_show_all_behaviors_path, :class => 'ui-btn' %></li>
+          </ul>
+        </div>
+      </div>
+  <% end %>
+
+<% content_for :panel do %>
+    <ul>
+      <li>Enter the new Behavior's name and a description.</li>
+      <li>Press Submit to assign the Behavior to the Client.</li>
+    </ul>
+<% end %>

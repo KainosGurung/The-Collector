@@ -1,0 +1,45 @@
+<% content_for :title do %>
+    Create new Client and assign to Provider: <%= params[:provider_name] %>
+<% end %>
+
+<% content_for :header do %>
+    <%= link_to 'Back', session[:patient_list_url], :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %>
+<% end %>
+
+  <h2>Create new Client and assign to Provider: <%= params[:provider_name] %></h2>
+
+  <% if @patient.errors.any? %>
+      <div class='error_messages'>
+        <h2>Form is invalid</h2>
+        <ul>
+          <% for message in @patient.errors.full_messages %>
+              <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+
+  <%= form_for @patient do |f| %>
+      <h3>
+        <%= f.label :name %>
+        <%= f.text_field :patient_name %>
+      </h3>
+
+      <%= hidden_field_tag :provider_id, params[:provider_id] %>
+
+      <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+        <div data-role="navbar">
+          <ul>
+            <li><%= submit_tag 'Submit', :class => 'ui-btn' %></li>
+            <li><%= link_to 'Cancel', session[:patient_list_url], :class => 'ui-btn'  %></li>
+          </ul>
+        </div>
+      </div>
+  <% end %>
+
+<% content_for :panel do %>
+    <ul>
+      <li>Press a client to assign them to the provider.</li>
+      <li>Press create new client to create a new client and assign them to the provider.</li>
+    </ul>
+<% end %>

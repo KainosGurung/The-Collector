@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  behavior_name: MyString
+  behavior_description: MyString
+
+two:
+  behavior_name: MyString
+  behavior_description: MyString
