@@ -1,0 +1,26 @@
+<% content_for :title do %>
+    Super Admin Home page
+<% end %>
+
+<% content_for :header do %>
+    <%= link_to 'Back', super_admin_home_path, :class => 'ui-btn ui-btn-icon-bottom ui-icon-back' %>
+<% end %>
+
+<h2>Super Admin Home page</h2>
+
+Welcome back <%= session[:self_provider_name] %>
+
+<%= link_to 'Show all Clients', av_show_all_patients_path, :class => 'ui-btn ui-corner-all ui-btn-icon-right ui-icon-carat-r' %>
+<%= link_to 'Show all Providers', av_show_all_providers_path, :class => 'ui-btn ui-corner-all ui-btn-icon-right ui-icon-carat-r' %>
+<%= link_to 'Show all Admins', sav_show_all_admins_path, :class => 'ui-btn ui-corner-all ui-btn-icon-right ui-icon-carat-r' %>
+<%= link_to 'Show all Behaviors', av_show_all_behaviors_path, :class => 'ui-btn ui-corner-all ui-btn-icon-right ui-icon-carat-r' %>
+<%= link_to 'Show all Incidents', av_show_all_incidents_path, :class => 'ui-btn ui-corner-all ui-btn-icon-right ui-icon-carat-r' %>
+<%= link_to 'Edit Self', sav_edit_self_path(session[:self_provider_id]), :class => 'ui-btn ui-corner-all ui-btn-icon-right ui-icon-carat-r' %>
+
+<% content_for :panel do %>
+    <ul>
+      <li>Press the Client, Provider, Admin, or Behavior button to list the respective entries in the database.</li>
+      <li>Press the Incident button to list the Incidents in the database.</li>
+      <li>Press the Edit self button to change your username or password.</li>
+    </ul>
+<% end %>
